@@ -63,6 +63,24 @@ def readTable(table,inclusieflogischverwijderd=True):
 # In[ ]:
 
 
+def reload():
+    database = 'settings.db'
+    try:
+        os.remove(database)
+    except:
+        pass
+    createDB()
+
+
+# In[ ]:
+
+
+reload()
+
+
+# In[ ]:
+
+
 def mySQL():
     sqlEngine       = create_engine('mysql+pymysql://kodi:kodi@127.0.0.1', pool_recycle=3600)
     return sqlEngine.connect()
@@ -94,6 +112,7 @@ def addNewShow(tvshow):
 
 
 # In[ ]:
+
 
 
 if readTable('allShows').values.tolist() == []:
@@ -143,6 +162,7 @@ epsToDelete = playedEpisodes.merge(toDelete, left_on='Show Name', right_on='show
 # In[ ]:
 
 
+import os
 for i in epsToDelete[['File name']].values.tolist():
     if os.path.exists(i[0][22:]):
         try:
